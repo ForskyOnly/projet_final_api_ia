@@ -1,0 +1,211 @@
+= SPEC-001: API de Machine Learning avec Déploiement sur Azure
+:sectnums:
+:toc:
+
+
+== Background
+
+L'objectif de ce projet est de fournir un modèle standard pour créer une API de données. Ce modèle inclut la procédure de construction d’une base de données PostgreSQL sur Azure, l’importation des données, l’intégration d’un modèle d’apprentissage automatique, et la mise en place de divers outils pour le développement, le test, et la surveillance du modèle. Le projet vise à faciliter la création, le déploiement, et la gestion d’une API de machine learning robuste et sécurisée.
+
+== Requirements
+
+*Must Have:*
+- Mise en place d'une base de données PostgreSQL sur Azure.
+- Procédure d'importation des données dans PostgreSQL.
+- Développement d'un modèle de machine learning.
+- Tests de qualité du modèle avec pytest.
+- Suivi des expériences avec MLflow sur Azure.
+- Création d'une API avec FastAPI.
+- Authentification basée sur des jetons pour l'API.
+- Surveillance MLOps de l'API.
+- Tableau de bord Streamlit pour la surveillance MLOps.
+
+*Should Have:*
+- Documentation détaillée du processus de mise en œuvre.
+- Démonstration de l'intégration continue et du déploiement continu (CI/CD).
+
+*Could Have:*
+- Fonctionnalités avancées de gestion des utilisateurs dans l'API.
+- Optimisation des performances de la base de données et de l'API.
+
+*Won't Have:*
+- Interface utilisateur complexe pour la gestion des données.
+- Support pour des bases de données autres que PostgreSQL.
+
+== Method
+
+=== Architecture Design
+
+L'architecture de l'API de machine learning comprend plusieurs composants clés :
+
+[plantuml]
+----
+@startuml
+!define RECTANGLE class
+
+RECTANGLE PostgreSQL {
+    + Data Storage
+    + Hosted on Azure
+}
+
+RECTANGLE DataImport {
+    + Data Ingestion Scripts
+    + Python
+}
+
+RECTANGLE MLModel {
+    + Model Training
+    + Scikit-learn/TensorFlow
+}
+
+RECTANGLE MLflow {
+    + Experiment Tracking
+    + Model Registry
+}
+
+RECTANGLE FastAPI {
+    + REST API
+    + Token-based Authentication
+}
+
+RECTANGLE Streamlit {
+    + Monitoring Dashboard
+    + Real-time Visualization
+}
+
+PostgreSQL --> DataImport : Import Data
+DataImport --> MLModel : Train Model
+MLModel --> MLflow : Track Experiments
+MLflow --> FastAPI : Deploy Model
+FastAPI --> Streamlit : Provide API Data
+@enduml
+----
+
+==== Database Setup
+
+1. Créez une base de données PostgreSQL sur Azure.
+2. Configurez les paramètres de connexion et les rôles d'utilisateur.
+3. Importez les données initiales dans la base de données.
+
+==== Model Training and Tracking
+
+1. Développez le modèle de machine learning en utilisant Scikit-learn ou TensorFlow.
+2. Utilisez pytest pour les tests unitaires du modèle.
+3. Intégrez MLflow pour le suivi des expériences et l'enregistrement des modèles.
+4. Déployez le modèle entraîné sur Azure.
+
+==== API Development
+
+1. Créez une API REST avec FastAPI.
+2. Implémentez l'authentification basée sur des jetons (JWT).
+3. Connectez l'API au modèle de machine learning déployé.
+
+==== Monitoring and Dashboard
+
+1. Développez un tableau de bord de surveillance avec Streamlit.
+2. Intégrez les données de surveillance MLOps.
+3. Configurez des visualisations en temps réel pour les performances de l'API et du modèle.
+
+== Implementation
+
+=== Mise en place de la base de données PostgreSQL sur Azure
+
+1. **Créer une base de données PostgreSQL sur Azure:**
+   - Connectez-vous au portail Azure.
+   - Créez un nouveau service PostgreSQL.
+   - Configurez les paramètres de la base de données (nom, version, région, etc.).
+   - Créez des utilisateurs et des rôles avec les permissions nécessaires.
+
+2. **Importer les données dans PostgreSQL:**
+   - Préparez vos fichiers de données (CSV, SQL dumps, etc.).
+   - Utilisez des outils comme `psql` ou `pgAdmin` pour importer les données dans votre base de données.
+
+=== Développement du modèle de machine learning
+
+1. **Développer le modèle:**
+   - Choisissez une bibliothèque de ML (par exemple, Scikit-learn, TensorFlow).
+   - Chargez les données depuis PostgreSQL pour l'entraînement.
+   - Entraînez le modèle et sauvegardez-le.
+
+2. **Tester le modèle avec pytest:**
+   - Écrivez des tests unitaires pour vérifier la performance et la précision du modèle.
+   - Utilisez `pytest` pour exécuter les tests.
+
+3. **Suivi des expériences avec MLflow:**
+   - Installez MLflow.
+   - Configurez MLflow pour suivre les expériences et enregistrer les modèles.
+   - Utilisez des scripts Python pour automatiser le suivi des entraînements.
+
+=== Développement de l'API avec FastAPI
+
+1. **Créer l'API REST:**
+   - Installez FastAPI et les dépendances nécessaires.
+   - Développez les points d'accès pour l'API, y compris l'authentification JWT.
+   - Connectez l'API au modèle de machine learning déployé.
+
+2. **Authentification basée sur des jetons (JWT):**
+   - Utilisez `pyjwt` ou une bibliothèque similaire pour gérer les jetons.
+   - Implémentez des endpoints pour l'inscription, la connexion et la gestion des sessions.
+
+=== Développement du tableau de bord de surveillance avec Streamlit
+
+1. **Développer le tableau de bord:**
+   - Installez Streamlit.
+   - Créez des visualisations pour les données de surveillance.
+   - Intégrez des métriques MLOps en temps réel.
+
+2. **Déployer le tableau de bord:**
+   - Configurez un environnement sur Azure pour héberger le tableau de bord Streamlit.
+   - Déployez l'application Streamlit et assurez-vous qu'elle est accessible.
+
+== Milestones
+
+1. **Mise en place de la base de données PostgreSQL sur Azure**
+   - Créer et configurer la base de données PostgreSQL.
+   - Importer les données initiales dans la base de données.
+
+2. **Développement du modèle de machine learning**
+   - Développer et entraîner le modèle de ML.
+   - Écrire et exécuter des tests unitaires avec pytest.
+   - Configurer et intégrer MLflow pour le suivi des expériences.
+
+3. **Développement de l'API FastAPI**
+   - Créer les points d'accès de l'API.
+   - Implémenter l'authentification JWT.
+   - Connecter l'API au modèle de ML déployé.
+
+4. **Développement du tableau de bord Streamlit**
+   - Créer des visualisations pour les données de surveillance.
+   - Intégrer des métriques MLOps.
+   - Déployer le tableau de bord sur Azure.
+
+5. **Tests et validation**
+   - Effectuer des tests de bout en bout de l'API et du tableau de bord.
+   - Valider les performances et la précision du modèle en production.
+
+6. **Déploiement final**
+   - Déployer l'API et le tableau de bord en production.
+   - Configurer la surveillance continue et les alertes.
+
+== Gathering Results
+
+1. **Évaluation des exigences:**
+   - Vérifier que toutes les exigences 'Must Have' sont remplies.
+   - Évaluer les exigences 'Should Have' et 'Could Have' pour des améliorations futures.
+
+2. **Performance du système:**
+   - Mesurer le temps de réponse de l'API.
+   - Surveiller la scalabilité et la robustesse du système sous charge.
+
+3. **Précision du modèle:**
+   - Analyser les performances du modèle en production.
+   - Comparer les résultats aux tests de qualité effectués avec pytest.
+
+4. **Retour d'expérience:**
+   - Recueillir les commentaires des utilisateurs finaux.
+   - Identifier les points d'amélioration pour les itérations futures.
+
+5. **Surveillance continue:**
+   - Maintenir la surveillance MLOps via le tableau de bord Streamlit.
+   - Ajuster et optimiser le modèle et l'infrastructure en fonction des données de surveillance.
+
