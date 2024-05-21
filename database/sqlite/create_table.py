@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd 
 
 
-df = pd.read_csv('cleaned_data.csv')
+df = pd.read_csv('/home/utilisateur/Documents/dev/devia/projet_final_api_ia/database/data/cleaned_data.csv')
 
 conn = sqlite3.connect('cars.db')
 
