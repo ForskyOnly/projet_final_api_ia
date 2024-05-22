@@ -10,4 +10,4 @@ echo $SERVER
 export PGPASSWORD=$PASSWORD 
 psql -h $SERVER -d $DATABASE -U $POSTGRES_USER 
 
-# \dt list all tables
+# \dt list all tablesconda 

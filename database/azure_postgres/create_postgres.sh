@@ -1,11 +1,13 @@
+#!/bin/bash
+
 # Load environment variables from .env file
 set -o allexport
-source .env
+source ../../.env
 set +o allexport
 #!/bin/bash
 
 # # # Login
- az login
+az login 
 
 # Create a new resource group
 az group create --name $RESSOURCE_GROUP --location $LOCATION
