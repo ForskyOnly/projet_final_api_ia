@@ -1,6 +1,7 @@
+#!/bin/bash
 # Load environment variables from .env file
 set -o allexport
-source .env
+source ../../.env
 set +o allexport
 
 carscsv="/home/utilisateur/Documents/dev/devia/projet_final_api_ia/database/data/cleaned_data.csv"

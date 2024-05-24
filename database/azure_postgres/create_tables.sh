@@ -1,6 +1,8 @@
+#!/bin/bash
+
 # Load environment variables from .env file
 set -o allexport
-source .env
+source ../../.env
 set +o allexport
 
 # Path to your SQL script file

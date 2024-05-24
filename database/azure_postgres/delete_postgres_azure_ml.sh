@@ -1,6 +1,7 @@
+#!/bin/bash
 # Load environment variables from .env file
 set -o allexport
-source .env
+source ../../.env
 set +o allexport
 
 az postgres db delete \
